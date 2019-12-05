@@ -32,7 +32,7 @@
     "email": "431910864@gmail.com"
   },
   "bugs": {
-    "url": "https://github.com/431910864/react-native-apple-sign-in1/issues"
+    "url": "https://github.com/431910864/react-native-apple-sign-in/issues"
   },
   "name": "react-native-apple-sign-in1",
   "title": "React Native Apple Sign In",
@@ -44,7 +44,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/431910864/react-native-apple-sign-in1.git"
+    "url": "git+https://github.com/431910864/react-native-apple-sign-in.git"
   },
   "keywords": [
     "react-native",

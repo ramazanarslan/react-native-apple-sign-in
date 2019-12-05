@@ -96,56 +96,15 @@ ASAuthorizationAppleIDCredential* credential = authorization.credential;
                          @"lastName": familyName,
                          @"email": RCTNullIfNil(credential.email),
                          @"user": credential.user,
-                         // @"authorizedScopes": credential.authorizedScopes,
-                         // @"realUserStatus": @(credential.realUserStatus),
-                         // @"state": RCTNullIfNil(credential.state),
                          };
   _promiseResolve(user);
-//     ASAuthorizationAppleIDCredential* credential = authorization.credential;
-//     NSString *identityToken = [[NSString alloc]initWithData:credential.identityToken encoding:NSUTF8StringEncoding];
-//     NSDictionary* user = @{
-//                          @"fullName": RCTNullIfNil(credential.fullName),
-//                          @"email": RCTNullIfNil(credential.email),
-//                          @"user": credential.user,
-//                          @"authorizedScopes": credential.authorizedScopes,
-//                          @"realUserStatus": @(credential.realUserStatus),
-//                          @"state": RCTNullIfNil(credential.state),
-//                          @"authorizationCode": RCTNullIfNil(credential.authorizationCode),
-//                          @"identityToken": RCTNullIfNil(identityToken),
-//                          };
-//   _promiseResolve(user);
 }
 
-// + (id)jwtDecodeWithJwtString:(NSString *)jwtStr {
-//
-//     NSArray * segments = [jwtStr componentsSeparatedByString:@"."];
-//     NSString * base64String = [segments objectAtIndex:1];
-//
-//     int requiredLength = (int)(4 *ceil((float)[base64String length]/4.0));
-//     int nbrPaddings = requiredLength - (int)[base64String length];
-//     if(nbrPaddings > 0) {
-//         NSString * pading = [[NSString string] stringByPaddingToLength:nbrPaddings withString:@"=" startingAtIndex:0];
-//         base64String = [base64String stringByAppendingString:pading];
-//     }
-//     base64String = [base64String stringByReplacingOccurrencesOfString:@"-" withString:@"+"];
-//     base64String = [base64String stringByReplacingOccurrencesOfString:@"_" withString:@"/"];
-//     NSData * decodeData = [[NSData alloc] initWithBase64EncodedData:[base64String dataUsingEncoding:NSUTF8StringEncoding] options:0];
-//     NSString * decodeString = [[NSString alloc] initWithData:decodeData encoding:NSUTF8StringEncoding];
-//     NSDictionary * jsonDict = [NSJSONSerialization JSONObjectWithData:[decodeString dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
-//     return jsonDict;
-// }
 
-
-// -(void)authorizationController:(ASAuthorizationController *)controller
-//            didCompleteWithError:(NSError *)error API_AVAILABLE(ios(13.0)){
-//     NSLog(@" Error code%@", error);
-//   _promiseReject(@"authorization", error.description, error);
-// }
-// RCT_EXPORT_METHOD(sampleMethod:(NSString *)stringArgument numberParameter:(nonnull NSNumber *)numberArgument callback:(RCTResponseSenderBlock)callback)
-// {
-//     // TODO: Implement some actually useful functionality
-//     callback(@[[NSString stringWithFormat: @"numberArgument: %@ stringArgument: %@", numberArgument, stringArgument]]);
-// }
-
+-(void)authorizationController:(ASAuthorizationController *)controller
+           didCompleteWithError:(NSError *)error {
+    NSLog(@" Error code%@", error);
+  _promiseReject(@"authorization", error.description, error);
+}
 
 @end

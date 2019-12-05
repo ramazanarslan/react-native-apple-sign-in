@@ -1,29 +1,33 @@
 import React from 'react';
-import { NativeModules ,requireNativeComponent ,Platform } from 'react-native';
+import { NativeModules, requireNativeComponent ,Platform } from 'react-native';
 
 const { AppleSignIn } = NativeModules;
 
-export const RNSignInWithAppleButton = requireNativeComponent('RNCSignInWithAppleButton');
+export const SignInWithAppleWhiteButton = requireNativeComponent('RNSignInWithAppleWhiteButton');
 
-export const SignInWithAppleButton = (buttonStyle, callBack) => {
-  if(Platform.OS === 'ios'){
-    return <RNSignInWithAppleButton style={buttonStyle} onPress={async () => {
-        await AppleSignIn.requestAsync({
-          scopes: [AppleSignIn.Scope.FULL_NAME, AppleSignIn.Scope.EMAIL],
-        }).then((response) => {
-          callBack(response) //Display response
-          }, (error) => {
-            callBack(error) //Display error
-           
-        });
+export const SignInWithAppleBlackButton = requireNativeComponent('RNSignInWithAppleBlackButton');
 
-  }} />
-  }else{
-  return null
+export const SignInWithAppleButton = (style, buttonStyle, callBack) => {
+    if(Platform.OS === 'ios'){
+        const Button = buttonStyle === "black" ? SignInWithAppleBlackButton : SignInWithAppleWhiteButton;
+        return <Button style={style} onPress={async () => {
 
-  }
-   
+            await AppleSignIn.requestAsync({
+                requestedScopes: [AppleSignIn.Scope.FULL_NAME, AppleSignIn.Scope.EMAIL],
+                requestedOperation: AppleSignIn.Operation.LOGIN,
+            }).then((response) => {
+                callBack(response) //Display response
+            }, (error) => {
+                callBack(error) //Display error
+
+            });
+
+        }} />
+    }else{
+        return null
+
+    }
+
 }
-
 
 export default AppleSignIn;

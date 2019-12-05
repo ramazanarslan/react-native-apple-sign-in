@@ -72,19 +72,48 @@ RCT_EXPORT_METHOD(requestAsync:(NSDictionary *)options
 
 - (void)authorizationController:(ASAuthorizationController *)controller
    didCompleteWithAuthorization:(ASAuthorization *)authorization API_AVAILABLE(ios(13.0)) {
-    ASAuthorizationAppleIDCredential* credential = authorization.credential;
-    NSString *identityToken = [[NSString alloc]initWithData:credential.identityToken encoding:NSUTF8StringEncoding];
-    NSDictionary* user = @{
-                         @"fullName": RCTNullIfNil(credential.fullName),
+ASAuthorizationAppleIDCredential* credential = authorization.credential;
+  NSDictionary *givenName;
+  NSDictionary *familyName;
+  if (credential.fullName) {
+    givenName = RCTNullIfNil(credential.fullName.givenName);
+    familyName = RCTNullIfNil(credential.fullName.familyName);
+  }
+
+  NSString *authorizationCode;
+  if (credential.authorizationCode) {
+    authorizationCode = [[NSString alloc] initWithData:credential.authorizationCode encoding:NSUTF8StringEncoding];
+  }
+  NSString *identityToken;
+  if (credential.identityToken) {
+    identityToken = [[NSString alloc] initWithData:credential.identityToken encoding:NSUTF8StringEncoding];
+  }
+
+  NSDictionary* user = @{
+                         @"authorizationCode": RCTNullIfNil(authorizationCode),
+                         @"identityToken": RCTNullIfNil(identityToken),
+                         @"firstName": givenName,
+                         @"lastName": familyName,
                          @"email": RCTNullIfNil(credential.email),
                          @"user": credential.user,
-                         @"authorizedScopes": credential.authorizedScopes,
-                         @"realUserStatus": @(credential.realUserStatus),
-                         @"state": RCTNullIfNil(credential.state),
-                         @"authorizationCode": RCTNullIfNil(credential.authorizationCode),
-                         @"identityToken": RCTNullIfNil(identityToken),
+                         // @"authorizedScopes": credential.authorizedScopes,
+                         // @"realUserStatus": @(credential.realUserStatus),
+                         // @"state": RCTNullIfNil(credential.state),
                          };
   _promiseResolve(user);
+//     ASAuthorizationAppleIDCredential* credential = authorization.credential;
+//     NSString *identityToken = [[NSString alloc]initWithData:credential.identityToken encoding:NSUTF8StringEncoding];
+//     NSDictionary* user = @{
+//                          @"fullName": RCTNullIfNil(credential.fullName),
+//                          @"email": RCTNullIfNil(credential.email),
+//                          @"user": credential.user,
+//                          @"authorizedScopes": credential.authorizedScopes,
+//                          @"realUserStatus": @(credential.realUserStatus),
+//                          @"state": RCTNullIfNil(credential.state),
+//                          @"authorizationCode": RCTNullIfNil(credential.authorizationCode),
+//                          @"identityToken": RCTNullIfNil(identityToken),
+//                          };
+//   _promiseResolve(user);
 }
 
 // + (id)jwtDecodeWithJwtString:(NSString *)jwtStr {

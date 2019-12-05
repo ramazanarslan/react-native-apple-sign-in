@@ -7,7 +7,7 @@ export const SignInWithAppleWhiteButton = requireNativeComponent('RNSignInWithAp
 
 export const SignInWithAppleBlackButton = requireNativeComponent('RNSignInWithAppleBlackButton');
 
-export const SignInWithAppleButton = (style, buttonStyle, callBack) => {
+export const SignInWithAppleButton = (style, callBack, buttonStyle) => {
     if(Platform.OS === 'ios'){
         const Button = buttonStyle === "black" ? SignInWithAppleBlackButton : SignInWithAppleWhiteButton;
         return <Button style={style} onPress={async () => {

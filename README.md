@@ -41,11 +41,13 @@ From react-native version 0.60 we don't need to link any third party module sepa
 
 import { SignInWithAppleButton } from 'react-native-apple-sign-in1'
 export default class App extends React.Component{
-
+   /*
+    * SignInWithAppleButton(按钮样式, 回调函数, 不传默认白色);
+    */
   render(){
     return(
     <View style = {styles.container}>
-     {SignInWithAppleButton(styles.appleBtn, this.appleSignIn)}
+     {SignInWithAppleButton(styles.appleBtn, this.appleSignIn, 'black')}
     </View>)
 
   }

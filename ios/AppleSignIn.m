@@ -73,7 +73,7 @@ RCT_EXPORT_METHOD(requestAsync:(NSDictionary *)options
 - (void)authorizationController:(ASAuthorizationController *)controller
    didCompleteWithAuthorization:(ASAuthorization *)authorization API_AVAILABLE(ios(13.0)) {
     ASAuthorizationAppleIDCredential* credential = authorization.credential;
-    NSString *idToken = [[NSString alloc]initWithData:credential.identityToken encoding:NSUTF8StringEncoding];
+    NSString *identityToken = [[NSString alloc]initWithData:credential.identityToken encoding:NSUTF8StringEncoding];
     NSDictionary* user = @{
                          @"fullName": RCTNullIfNil(credential.fullName),
                          @"email": RCTNullIfNil(credential.email),
@@ -82,8 +82,7 @@ RCT_EXPORT_METHOD(requestAsync:(NSDictionary *)options
                          @"realUserStatus": @(credential.realUserStatus),
                          @"state": RCTNullIfNil(credential.state),
                          @"authorizationCode": RCTNullIfNil(credential.authorizationCode),
-                         @"identityToken": RCTNullIfNil(idToken),
-                         @"authData": RCTNullIfNil(authData),
+                         @"identityToken": RCTNullIfNil(identityToken),
                          };
   _promiseResolve(user);
 }

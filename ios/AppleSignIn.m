@@ -11,30 +11,36 @@
 RCT_EXPORT_MODULE()
 
 -(NSDictionary *)constantsToExport API_AVAILABLE(ios(13.0)) {
-  NSDictionary* scopes = @{@"FULL_NAME": ASAuthorizationScopeFullName, @"EMAIL": ASAuthorizationScopeEmail};
-  NSDictionary* operations = @{
-    @"LOGIN": ASAuthorizationOperationLogin,
-    @"REFRESH": ASAuthorizationOperationRefresh,
-    @"LOGOUT": ASAuthorizationOperationLogout,
-    @"IMPLICIT": ASAuthorizationOperationImplicit
-  };
-  NSDictionary* credentialStates = @{
-    @"AUTHORIZED": @(ASAuthorizationAppleIDProviderCredentialAuthorized),
-    @"REVOKED": @(ASAuthorizationAppleIDProviderCredentialRevoked),
-    @"NOT_FOUND": @(ASAuthorizationAppleIDProviderCredentialNotFound),
-  };
-  NSDictionary* userDetectionStatuses = @{
-    @"LIKELY_REAL": @(ASUserDetectionStatusLikelyReal),
-    @"UNKNOWN": @(ASUserDetectionStatusUnknown),
-    @"UNSUPPORTED": @(ASUserDetectionStatusUnsupported),
-  };
+    
+    if (@available(iOS 13, *)) {
+           
+        NSDictionary* scopes = @{@"FULL_NAME": ASAuthorizationScopeFullName, @"EMAIL": ASAuthorizationScopeEmail};
+         NSDictionary* operations = @{
+           @"LOGIN": ASAuthorizationOperationLogin,
+           @"REFRESH": ASAuthorizationOperationRefresh,
+           @"LOGOUT": ASAuthorizationOperationLogout,
+           @"IMPLICIT": ASAuthorizationOperationImplicit
+         };
+         NSDictionary* credentialStates = @{
+           @"AUTHORIZED": @(ASAuthorizationAppleIDProviderCredentialAuthorized),
+           @"REVOKED": @(ASAuthorizationAppleIDProviderCredentialRevoked),
+           @"NOT_FOUND": @(ASAuthorizationAppleIDProviderCredentialNotFound),
+         };
+         NSDictionary* userDetectionStatuses = @{
+           @"LIKELY_REAL": @(ASUserDetectionStatusLikelyReal),
+           @"UNKNOWN": @(ASUserDetectionStatusUnknown),
+           @"UNSUPPORTED": @(ASUserDetectionStatusUnsupported),
+         };
 
-  return @{
-           @"Scope": scopes,
-           @"Operation": operations,
-           @"CredentialState": credentialStates,
-           @"UserDetectionStatus": userDetectionStatuses
-           };
+         return @{
+                  @"Scope": scopes,
+                  @"Operation": operations,
+                  @"CredentialState": credentialStates,
+                  @"UserDetectionStatus": userDetectionStatuses
+                  };
+    }
+    return @{};
+ 
 }
 
 

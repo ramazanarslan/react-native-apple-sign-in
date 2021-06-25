@@ -2,7 +2,7 @@ import { NativeModules, Platform } from 'react-native';
 
 const { AppleSignIn } = NativeModules;
 
-export async function performAppleSignInRequest() {
+export const performAppleSignInRequest = async () => {
     if (Platform.OS !== "ios") throw new Error("Platform must be IOS");
 
     return await AppleSignIn.requestAsync({
